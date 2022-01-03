@@ -65,10 +65,10 @@ impl Display for Chunk {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         write!(
             f,
-            "Length: {}\nType: {}\nData: {:?}\nCRC: {}",
+            "Chunk {{\n\tLength: {}\n\tType: {}\n\tData: {} bytes\n\tCRC: {}\n}}",
             self.length(),
             self.chunk_type(),
-            self.data(),
+            self.data().len(),
             self.crc()
         )
     }
