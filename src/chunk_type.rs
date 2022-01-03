@@ -2,7 +2,7 @@ use crate::error::Error;
 use anyhow::Result;
 use std::{fmt::Display, str::FromStr};
 
-#[derive(PartialEq, Eq, Debug)]
+#[derive(PartialEq, Eq, Debug, Clone)]
 pub struct ChunkType {
     bytes: [u8; 4],
 }

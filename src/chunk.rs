@@ -1,6 +1,6 @@
 use std::fmt::Display;
 
-use crate::chunk_type::ChunkType;
+use crate::chunk_type::{self, ChunkType};
 use crate::error::Error;
 use crc::Crc;
 
@@ -11,6 +11,22 @@ pub struct Chunk {
 }
 
 impl Chunk {
+    pub fn new(chunk_type: ChunkType, data: Vec<u8>) -> Chunk {
+        let crc_ck = Crc::<u32>::new(&crc::CRC_32_ISO_HDLC);
+        Self {
+            chunk_type: chunk_type.clone(),
+            data: data.clone(),
+            crc: crc_ck.checksum(
+                &chunk_type
+                    .bytes()
+                    .iter()
+                    .chain(data.iter())
+                    .cloned()
+                    .collect::<Vec<u8>>()
+                    .as_slice(),
+            ),
+        }
+    }
     pub fn length(&self) -> u32 {
         self.data.len() as u32
     }
