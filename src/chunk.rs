@@ -4,37 +4,37 @@ use crate::chunk_type::ChunkType;
 use crate::error::Error;
 use crc::Crc;
 
-struct Chunk {
+pub struct Chunk {
     chunk_type: ChunkType,
     data: Vec<u8>,
     crc: u32,
 }
 
 impl Chunk {
-    fn length(&self) -> u32 {
+    pub fn length(&self) -> u32 {
         self.data.len() as u32
     }
 
-    fn chunk_type(&self) -> &ChunkType {
+    pub fn chunk_type(&self) -> &ChunkType {
         &self.chunk_type
     }
 
-    fn data(&self) -> &[u8] {
+    pub fn data(&self) -> &[u8] {
         self.data.as_slice()
     }
 
-    fn crc(&self) -> u32 {
+    pub fn crc(&self) -> u32 {
         self.crc
     }
 
-    fn data_as_string(&self) -> Result<String, Error> {
+    pub fn data_as_string(&self) -> Result<String, Error> {
         match std::str::from_utf8(self.data.as_slice()) {
             Ok(data) => Ok(data.to_owned()),
             Err(_) => Err(Error::DataNotUTF8),
         }
     }
 
-    fn as_bytes(&self) -> Vec<u8> {
+    pub fn as_bytes(&self) -> Vec<u8> {
         u32::to_be_bytes(self.length())
             .iter()
             .chain(self.chunk_type.bytes().iter())
