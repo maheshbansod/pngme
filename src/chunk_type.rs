@@ -1,14 +1,10 @@
+use crate::error::Error;
 use anyhow::Result;
 use std::{fmt::Display, str::FromStr};
 
 #[derive(PartialEq, Eq, Debug)]
 struct ChunkType {
     bytes: [u8; 4],
-}
-
-#[derive(Debug)]
-enum Error {
-    InvalidChunkType,
 }
 
 const CHECK_BIT: u8 = 0b0010_0000;
