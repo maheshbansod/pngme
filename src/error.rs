@@ -8,4 +8,7 @@ pub enum Error {
     },
     InvalidCRC,
     DataNotUTF8,
+    PngTooSmall,
+    InvalidHeader,
+    NoChunkOfGivenTypeFound,
 }

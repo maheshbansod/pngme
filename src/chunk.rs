@@ -85,7 +85,7 @@ impl TryFrom<&[u8]> for Chunk {
         let length = u32::from_be_bytes(buf_bytes);
         buf_bytes.copy_from_slice(&bytes[4..8]);
         let chunk_type = ChunkType::try_from(buf_bytes)?;
-        if bytes.len() as u32 != length + 12 {
+        if (bytes.len() as u32) < length + 12 {
             return Err(Error::InvalidChunkSize {
                 bytes_recv: bytes.len(),
                 length_field: length,
