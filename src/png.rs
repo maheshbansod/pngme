@@ -73,8 +73,8 @@ impl TryFrom<&[u8]> for Png {
         if bytes.len() < 20 {
             return Err(Error::PngTooSmall);
         }
-        for i in 0..8 {
-            if bytes[i] != Png::STANDARD_HEADER[i] {
+        for (i, byte) in bytes.iter().enumerate().take(8) {
+            if *byte != Png::STANDARD_HEADER[i] {
                 return Err(Error::InvalidHeader);
             }
         }

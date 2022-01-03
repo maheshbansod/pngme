@@ -17,7 +17,7 @@ impl Chunk {
             chunk_type: chunk_type.clone(),
             data: data.clone(),
             crc: crc_ck.checksum(
-                &chunk_type
+                chunk_type
                     .bytes()
                     .iter()
                     .chain(data.iter())
