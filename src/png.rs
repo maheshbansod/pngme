@@ -1,7 +1,7 @@
 use std::fmt::Display;
 
-use crate::chunk::Chunk;
-use crate::error::Error;
+pub use crate::chunk::Chunk;
+pub use crate::error::Error;
 use anyhow::Result;
 
 pub struct Png {
