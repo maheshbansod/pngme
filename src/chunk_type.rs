@@ -39,7 +39,7 @@ impl TryFrom<[u8; 4]> for ChunkType {
     type Error = Error;
     fn try_from(bytes: [u8; 4]) -> Result<Self, Self::Error> {
         for byte in bytes {
-            if byte < 65 || byte > 122 || (byte > 90 && byte < 97) {
+            if !((65_u8..=122_u8).contains(&byte)) || (byte > 90 && byte < 97) {
                 return Err(Error::InvalidChunkType);
             }
         }
@@ -51,8 +51,8 @@ impl FromStr for ChunkType {
     type Err = Error;
     fn from_str(s: &str) -> Result<Self, Self::Err> {
         let mut bytes: [u8; 4] = Default::default();
-        bytes.copy_from_slice(&s.as_bytes());
-        Ok(ChunkType::try_from(bytes)?)
+        bytes.copy_from_slice(s.as_bytes());
+        ChunkType::try_from(bytes)
     }
 }
 
