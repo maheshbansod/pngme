@@ -50,8 +50,12 @@ impl TryFrom<[u8; 4]> for ChunkType {
 impl FromStr for ChunkType {
     type Err = Error;
     fn from_str(s: &str) -> Result<Self, Self::Err> {
+        let s_bytes = s.as_bytes();
+        if s_bytes.len() > 4 {
+            return Err(Error::InvalidChunkType);
+        }
         let mut bytes: [u8; 4] = Default::default();
-        bytes.copy_from_slice(s.as_bytes());
+        bytes.copy_from_slice(s_bytes);
         ChunkType::try_from(bytes)
     }
 }
