@@ -57,7 +57,7 @@ impl Png {
                 acc
             },
         );
-        Png::STANDARD_HEADER
+        self.header()
             .iter()
             .chain(chunks_as_bytes.iter())
             .copied()
@@ -121,8 +121,6 @@ mod tests {
     }
 
     fn chunk_from_strings(chunk_type: &str, data: &str) -> Result<Chunk, Error> {
-        use std::str::FromStr;
-
         let chunk_type = ChunkType::from_str(chunk_type)?;
         let data: Vec<u8> = data.bytes().collect();
 

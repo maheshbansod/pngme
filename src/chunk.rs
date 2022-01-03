@@ -1,6 +1,6 @@
 use std::fmt::Display;
 
-use crate::chunk_type::{self, ChunkType};
+use crate::chunk_type::ChunkType;
 use crate::error::Error;
 use crc::Crc;
 
@@ -110,8 +110,6 @@ impl TryFrom<&[u8]> for Chunk {
 #[cfg(test)]
 mod tests {
     use super::*;
-    use crate::chunk_type::ChunkType;
-    use std::str::FromStr;
 
     fn testing_chunk() -> Chunk {
         let data_length: u32 = 42;
